@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-
-  def hello
-    render html: "hello, world!"
-  end
+  #sessionヘルパーを全体で使用できるように読み込む
+  include SessionsHelper
 end

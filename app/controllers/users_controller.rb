@@ -10,11 +10,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    #debugger
     if @user.save
-      # 成功時に表示するメッセージ
+      # 保存の成功をここで扱う。
+      # signup画面でユーザ作成したら作成したユーザで自動的にログインさせる
+      log_in(@user)
       flash[:success] = "Welcome to the Sample App!"
-      # リダイレクト
       redirect_to @user
     else
       render 'new'
@@ -24,8 +24,8 @@ class UsersController < ApplicationController
   private 
     #入力値精査メソッド
     def user_params
-        params.require(:user).permit(:name, :email, :password, :password_confirmation)
+        params.require(:user).permit(:name, :email, :password,
+                                   :password_confirmation)
     end
-  
 
 end
