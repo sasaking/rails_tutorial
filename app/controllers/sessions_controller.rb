@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       #ログインできたらユーザIDをセッション変数に格納する
       log_in user
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to user
     else
       #debugger
@@ -17,7 +18,7 @@ class SessionsController < ApplicationController
   
   def destroy
     # ログアウトさせるメソッド呼び出し(session_helperに設定)
-    log_out
+    log_out if logged_in?
     redirect_to root_url
   end
 end
