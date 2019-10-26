@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
       #ログインできたらユーザIDをセッション変数に格納する
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user
+      #redirect_to user
+      #フレンドリーフォワーディングがあれば、そちらに画面遷移する。
+      redirect_back_or user
     else
       #debugger
       flash.now[:danger] = 'Invalid email/password combination' # 本当は正しくない
